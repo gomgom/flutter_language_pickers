@@ -1,7 +1,7 @@
 # language_pickers
 
 ![](https://img.shields.io/github/license/devbygomgom/flutter_language_pickers.svg)
-![](https://img.shields.io/badge/Flutter%20Package-^0.1.0-blue.svg)
+![](https://img.shields.io/badge/Flutter%20Package-^0.1.1-blue.svg)
 ![](https://img.shields.io/github/languages/code-size/devbygomgom/flutter_language_pickers.svg)
 
 It's [package](https://flutter.io/developing-packages/) for Dart and Flutter.
