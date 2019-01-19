@@ -1,6 +1,6 @@
 name: language_pickers
 description: It makes language select pickers for you in Flutter. You can use it freely in lots of ways.
-version: 0.1.0
+version: 0.1.1
 author: gomgom <dev@gomgom.io>
 homepage: https://github.com/devbygomgom/flutter_language_pickers
 
@@ -15,6 +15,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter:
-  assets:
-  - assets/
+#flutter:
+#  assets:
+#  - assets/

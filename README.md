@@ -9,7 +9,7 @@ It's [package](https://flutter.io/developing-packages/) for Dart and Flutter.
 It makes language select pickers for you in Flutter. You can use it freely in lots of ways.
 
 And specially thanks to Figen Güngör([@figengungor](https://github.com/figengungor)), who is opened the source code of '[country_pickers](https://pub.dartlang.org/packages/country_pickers)'.
-Lots of source codes are from [country_pickers GitHub Repository](https://github.com/figengungor/country_pickers), specially thanks to 'Figen Güngör'. I used his code, so works are very easy. Thanks again.
+Lots of source codes are from [country_pickers GitHub Repository](https://github.com/figengungor/country_pickers), so works are very easy. Thanks again.
 
 ![](art/example.gif)
 
