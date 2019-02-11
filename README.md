@@ -1,8 +1,8 @@
 # language_pickers
 
-![](https://img.shields.io/github/license/devbygomgom/flutter_language_pickers.svg)
-![](https://img.shields.io/badge/Flutter%20Package-^0.1.1-blue.svg)
-![](https://img.shields.io/github/languages/code-size/devbygomgom/flutter_language_pickers.svg)
+![](https://img.shields.io/github/license/gomgomize/flutter_language_pickers.svg)
+![](https://img.shields.io/badge/Flutter%20Package-^0.1.2-blue.svg)
+![](https://img.shields.io/github/languages/code-size/gomgomize/flutter_language_pickers.svg)
 
 It's [package](https://flutter.io/developing-packages/) for Dart and Flutter.
 
@@ -121,9 +121,9 @@ Widget _buildCupertinoItem(Language language) => Row(
 
 ## Information
 
-**If you want to change your language name to your native language, not English, please make some issues on [Github](https://github.com/devbygomgom/flutter_language_pickers/issues).**
+**If you want to change your language name to your native language, not English, please make some issues on [Github](https://github.com/gomgomize/flutter_language_pickers/issues).**
 
 
 ## Credits
 
-Developed by [gomgom](https://www.gomgom.io)(Github [@devbygomgom](https://github.com/devbygomgom)).
+Developed by [Gomgom](https://www.gomgom.io)(Github [@gomgomize](https://github.com/gomgomize)).
