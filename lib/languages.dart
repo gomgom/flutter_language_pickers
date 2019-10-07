@@ -1,4 +1,4 @@
-final List languagesList = [
+final List defaultLanguagesList = [
   {"isoCode": "ab", "name": "Abkhazian"},
   {"isoCode": "aa", "name": "Afar"},
   {"isoCode": "af", "name": "Afrikaans"},

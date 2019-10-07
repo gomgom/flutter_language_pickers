@@ -4,8 +4,7 @@ import 'package:flutter/widgets.dart';
 
 class LanguagePickerUtils {
   static Language getLanguageByIsoCode(String isoCode) {
-    final _languages =
-        languagesList.map((item) => Language.fromMap(item)).toList();
+    final _languages = defaultLanguagesList.map((item) => Language.fromMap(item)).toList();
     try {
       return _languages
           .where((language) =>

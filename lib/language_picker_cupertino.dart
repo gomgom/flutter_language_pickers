@@ -61,6 +61,9 @@ class LanguagePickerCupertino extends StatefulWidget {
   /// If null, an implicit one will be created internally.
   final FixedExtentScrollController scrollController;
 
+  /// List of languages available in this picker.
+  final languagesList;
+
   const LanguagePickerCupertino({
     Key key,
     this.onValuePicked,
@@ -74,6 +77,7 @@ class LanguagePickerCupertino extends StatefulWidget {
     this.useMagnifier,
     this.magnification,
     this.scrollController,
+    this.languagesList,
   }) : super(key: key);
 
   @override
@@ -81,8 +85,14 @@ class LanguagePickerCupertino extends StatefulWidget {
 }
 
 class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
-  final List<Language> _allLanguages =
-      languagesList.map((item) => Language.fromMap(item)).toList();
+  List<Language> _allLanguages;
+
+  @override
+  void initState() {
+    super.initState();
+    final languageList = widget.languagesList ?? defaultLanguagesList;
+    _allLanguages = languageList.map((item) => Language.fromMap(item)).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
