@@ -104,14 +104,14 @@ class LanguagePickerDialog extends StatefulWidget {
 }
 
 class SingleChoiceDialogState extends State<LanguagePickerDialog> {
-  List<Language> _allCountries;
-  List<Language> _filteredCountries;
+  List<Language> _allLanguages;
+  List<Language> _filteredLanguages;
 
   @override
   void initState() {
     final languageList = widget.languagesList ?? defaultLanguagesList;
-    _allCountries = languageList.map((item) => Language.fromMap(item)).toList();
-    _filteredCountries = _allCountries;
+    _allLanguages = languageList.map((item) => Language.fromMap(item)).toList();
+    _filteredLanguages = _allLanguages;
     super.initState();
   }
 
@@ -128,10 +128,10 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
   }
 
   _buildContent(BuildContext context) {
-    return _filteredCountries.isNotEmpty
+    return _filteredLanguages.isNotEmpty
         ? ListView(
             shrinkWrap: true,
-            children: _filteredCountries
+            children: _filteredLanguages
                 .map((item) => SimpleDialogOption(
                       child: widget.itemBuilder != null
                           ? widget.itemBuilder(item)
@@ -176,7 +176,7 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
           widget.searchInputDecoration ?? InputDecoration(hintText: 'Search'),
       onChanged: (String value) {
         setState(() {
-          _filteredCountries = _allCountries
+          _filteredLanguages = _allLanguages
               .where((Language language) =>
                   language.name.toLowerCase().startsWith(value.toLowerCase()) ||
                   language.isoCode.toLowerCase().startsWith(value.toLowerCase()))
