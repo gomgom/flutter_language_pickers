@@ -1,4 +1,4 @@
-final List languagesList = [
+final List defaultLanguagesList = [
   {"isoCode": "ab", "name": "Abkhazian"},
   {"isoCode": "aa", "name": "Afar"},
   {"isoCode": "af", "name": "Afrikaans"},
@@ -77,7 +77,7 @@ final List languagesList = [
   {"isoCode": "ik", "name": "Inupiaq"},
   {"isoCode": "ga", "name": "Irish"},
   {"isoCode": "it", "name": "Italian"},
-  {"isoCode": "ja", "name": "日本語"},
+  {"isoCode": "ja", "name": "Japanese"},
   {"isoCode": "jv", "name": "Javanese"},
   {"isoCode": "kl", "name": "Kalaallisut"},
   {"isoCode": "kn", "name": "Kannada"},
@@ -89,7 +89,7 @@ final List languagesList = [
   {"isoCode": "ky", "name": "Kirghiz"},
   {"isoCode": "kv", "name": "Komi"},
   {"isoCode": "kg", "name": "Kongo"},
-  {"isoCode": "ko", "name": "한국어"},
+  {"isoCode": "ko", "name": "Korean"},
   {"isoCode": "kj", "name": "Kuanyama"},
   {"isoCode": "ku", "name": "Kurdish"},
   {"isoCode": "lo", "name": "Lao"},
