@@ -76,7 +76,7 @@ class LanguagePickerDialog extends StatefulWidget {
   final Widget searchEmptyView;
 
   /// List of languages available in this picker.
-  final languagesList;
+  final List languagesList;
 
   LanguagePickerDialog({
     Key key,

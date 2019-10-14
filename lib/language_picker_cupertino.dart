@@ -62,7 +62,7 @@ class LanguagePickerCupertino extends StatefulWidget {
   final FixedExtentScrollController scrollController;
 
   /// List of languages available in this picker.
-  final languagesList;
+  final List languagesList;
 
   const LanguagePickerCupertino({
     Key key,

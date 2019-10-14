@@ -23,7 +23,7 @@ class LanguagePickerDropdown extends StatefulWidget {
   final ValueChanged<Language> onValuePicked;
 
   /// List of languages available in this picker.
-  final languagesList;
+  final List languagesList;
 
   @override
   _LanguagePickerDropdownState createState() => _LanguagePickerDropdownState();
