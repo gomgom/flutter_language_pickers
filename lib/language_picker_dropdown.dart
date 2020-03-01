@@ -1,8 +1,6 @@
-import 'package:language_pickers/language.dart';
 import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/utils/typedefs.dart';
 import 'package:flutter/material.dart';
-import 'utils/utils.dart';
 
 ///Provides a customizable [DropdownButton] for all languages
 class LanguagePickerDropdown extends StatefulWidget {
@@ -23,7 +21,7 @@ class LanguagePickerDropdown extends StatefulWidget {
   final ValueChanged<Language> onValuePicked;
 
   /// List of languages available in this picker.
-  final languagesList;
+  final List<Map<String, String>> languagesList;
 
   @override
   _LanguagePickerDropdownState createState() => _LanguagePickerDropdownState();
@@ -41,7 +39,7 @@ class _LanguagePickerDropdownState extends State<LanguagePickerDropdown> {
       try {
         _selectedLanguage = _languages
             .where((language) =>
-                language.isoCode == widget.initialValue.toLowerCase())
+                language.isoCode == widget.initialValue)
             .toList()[0];
       } catch (error) {
         throw Exception(

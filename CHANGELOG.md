@@ -1,3 +1,9 @@
+## [0.2.0] - 1st March, 2020
+
+* Bug fixes.
+* Change languages type.
+
+
 ## [0.1.3] - 9th October, 2019
 
 * (Pull Request Merge -- Masato Nagashima) Renamed from country to language.

@@ -1,4 +1,4 @@
-import 'package:language_pickers/language.dart';
+import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/utils/typedefs.dart';
 
 import 'package:language_pickers/utils/my_alert_dialog.dart';

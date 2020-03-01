@@ -1,6 +1,4 @@
 import 'package:language_pickers/languages.dart';
-import 'package:language_pickers/language.dart';
-import 'package:flutter/widgets.dart';
 
 class LanguagePickerUtils {
   static Language getLanguageByIsoCode(String isoCode) {

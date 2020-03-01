@@ -1,3 +1,14 @@
+class Language {
+  Language(this.isoCode, this.name);
+
+  final String name;
+  final String isoCode;
+
+  Language.fromMap(Map<String, String> map)
+      : name = map['name'],
+        isoCode = map['isoCode'];
+}
+
 final List defaultLanguagesList = [
   {"isoCode": "ab", "name": "Abkhazian"},
   {"isoCode": "aa", "name": "Afar"},
@@ -18,7 +29,7 @@ final List defaultLanguagesList = [
   {"isoCode": "eu", "name": "Basque"},
   {"isoCode": "be", "name": "Belarusian"},
   {"isoCode": "bn", "name": "Bengali"},
-  {"isoCode": "bh", "name": "Bihari languages"},
+  {"isoCode": "bh", "name": "Bihari Languages"},
   {"isoCode": "bi", "name": "Bislama"},
   {"isoCode": "nb", "name": "Norwegian"},
   {"isoCode": "bs", "name": "Bosnian"},
@@ -30,7 +41,8 @@ final List defaultLanguagesList = [
   {"isoCode": "ch", "name": "Chamorro"},
   {"isoCode": "ce", "name": "Chechen"},
   {"isoCode": "ny", "name": "Chewa (Nyanja)"},
-  {"isoCode": "zh", "name": "Chinese"},
+  {"isoCode": "zh_Hans", "name": "Chinese (Simplified)"},
+  {"isoCode": "zh_Hant", "name": "Chinese (Traditional)"},
   {"isoCode": "cu", "name": "Church Slavonic"},
   {"isoCode": "cv", "name": "Chuvash"},
   {"isoCode": "kw", "name": "Cornish"},

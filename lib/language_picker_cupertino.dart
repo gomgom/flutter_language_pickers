@@ -1,7 +1,5 @@
 import 'package:language_pickers/languages.dart';
-import 'package:language_pickers/language.dart';
 import 'package:language_pickers/utils/typedefs.dart';
-import 'package:language_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 
 const double defaultPickerSheetHeight = 216.0;

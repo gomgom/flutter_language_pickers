@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:language_pickers/language.dart';
+import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/language_pickers.dart';
 
 void main() => runApp(MyApp());
