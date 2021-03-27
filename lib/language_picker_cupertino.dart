@@ -9,11 +9,11 @@ const double defaultPickerItemHeight = 32.0;
 /// in cupertino style
 class LanguagePickerCupertino extends StatefulWidget {
   /// Callback that is called with selected Language
-  final ValueChanged<Language> onValuePicked;
+  final ValueChanged<Language>? onValuePicked;
 
   ///Callback that is called with selected item of type Language which returns a
   ///Widget to build list view item inside dialog
-  final ItemBuilder itemBuilder;
+  final ItemBuilder? itemBuilder;
 
   ///The [itemExtent] of [CupertinoPicker]
   /// The uniform height of all children.
@@ -26,7 +26,7 @@ class LanguagePickerCupertino extends StatefulWidget {
   final double pickerSheetHeight;
 
   ///The TextStyle that is applied to Text widgets inside item
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// Relative ratio between this picker's height and the simulated cylinder's diameter.
   ///
@@ -35,7 +35,7 @@ class LanguagePickerCupertino extends StatefulWidget {
   /// For more details, see [ListWheelScrollView.diameterRatio].
   ///
   /// Must not be null and defaults to `1.1` to visually mimic iOS.
-  final double diameterRatio;
+  final double? diameterRatio;
 
   /// Background color behind the children.
   ///
@@ -43,27 +43,27 @@ class LanguagePickerCupertino extends StatefulWidget {
   ///
   /// This can be set to null to disable the background painting entirely; this
   /// is mildly more efficient than using [Colors.transparent].
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// {@macro flutter.rendering.wheelList.offAxisFraction}
-  final double offAxisFraction;
+  final double? offAxisFraction;
 
   /// {@macro flutter.rendering.wheelList.useMagnifier}
-  final bool useMagnifier;
+  final bool? useMagnifier;
 
   /// {@macro flutter.rendering.wheelList.magnification}
-  final double magnification;
+  final double? magnification;
 
   /// A [FixedExtentScrollController] to read and control the current item.
   ///
   /// If null, an implicit one will be created internally.
-  final FixedExtentScrollController scrollController;
+  final FixedExtentScrollController? scrollController;
 
   /// List of languages available in this picker.
-  final List<Map<String, String>> languagesList;
+  final List<Map<String, String>>? languagesList;
 
   const LanguagePickerCupertino({
-    Key key,
+    Key? key,
     this.onValuePicked,
     this.itemBuilder,
     this.pickerItemHeight = defaultPickerItemHeight,
@@ -83,7 +83,7 @@ class LanguagePickerCupertino extends StatefulWidget {
 }
 
 class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
-  List<Language> _allLanguages;
+  late List<Language> _allLanguages;
 
   @override
   void initState() {
@@ -124,11 +124,11 @@ class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
       backgroundColor: CupertinoColors.white,
       children: _allLanguages
           .map<Widget>((Language language) => widget.itemBuilder != null
-              ? widget.itemBuilder(language)
+              ? widget.itemBuilder!(language)
               : _buildDefaultItem(language))
           .toList(),
       onSelectedItemChanged: (int index) {
-        widget.onValuePicked(_allLanguages[index]);
+        widget.onValuePicked!(_allLanguages[index]);
       },
     );
   }

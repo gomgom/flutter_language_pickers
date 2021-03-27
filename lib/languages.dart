@@ -5,8 +5,8 @@ class Language {
   final String isoCode;
 
   Language.fromMap(Map<String, String> map)
-      : name = map['name'],
-        isoCode = map['isoCode'];
+      : name = map['name']!,
+        isoCode = map['isoCode']!;
 }
 
 final List defaultLanguagesList = [
