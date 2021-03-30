@@ -11,25 +11,25 @@ class LanguagePickerDropdown extends StatefulWidget {
   ///If it is not provided, default one will be used which displays
   ///flag image, isoCode and phoneCode in a row.
   ///Check _buildDefaultMenuItem method for details.
-  final ItemBuilder itemBuilder;
+  final ItemBuilder? itemBuilder;
 
   ///It should be one of the ISO ALPHA-2 Code that is provided
   ///in languagesList map of languages.dart file.
-  final String initialValue;
+  final String? initialValue;
 
   ///This function will be called whenever a Language item is selected.
-  final ValueChanged<Language> onValuePicked;
+  final ValueChanged<Language>? onValuePicked;
 
   /// List of languages available in this picker.
-  final List<Map<String, String>> languagesList;
+  final List<Map<String, String>>? languagesList;
 
   @override
   _LanguagePickerDropdownState createState() => _LanguagePickerDropdownState();
 }
 
 class _LanguagePickerDropdownState extends State<LanguagePickerDropdown> {
-  List<Language> _languages;
-  Language _selectedLanguage;
+  late List<Language> _languages;
+  late Language _selectedLanguage;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _LanguagePickerDropdownState extends State<LanguagePickerDropdown> {
         .map((language) => DropdownMenuItem<Language>(
             value: language,
             child: widget.itemBuilder != null
-                ? widget.itemBuilder(language)
+                ? widget.itemBuilder!(language)
                 : _buildDefaultMenuItem(language)))
         .toList();
 
@@ -69,8 +69,8 @@ class _LanguagePickerDropdownState extends State<LanguagePickerDropdown> {
             isDense: true,
             onChanged: (value) {
               setState(() {
-                _selectedLanguage = value;
-                widget.onValuePicked(value);
+                _selectedLanguage = value!;
+                widget.onValuePicked!(value);
               });
             },
             items: items,
