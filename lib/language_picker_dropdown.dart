@@ -87,7 +87,9 @@ class _LanguagePickerDropdownState extends State<LanguagePickerDropdown> {
         SizedBox(
           width: 8.0,
         ),
-        Text("${language.name} (${language.isoCode})"),
+        Text("${language.name} (${language.isoCode})",
+             style: TextStyle(color: Colors.blue),
+             ),
       ],
     );
   }
