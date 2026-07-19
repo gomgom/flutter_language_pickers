@@ -25,6 +25,16 @@ void main() {
     expect(find.text('Korean (ko)'), findsOneWidget);
   });
 
+  testWidgets('LanguagePickerDialog search finds middle of name',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: LanguagePickerDialog(isSearchable: true),
+    ));
+    await tester.enterText(find.byType(TextField), 'orea');
+    await tester.pump();
+    expect(find.text('Korean'), findsOneWidget);
+  });
+
   testWidgets('LanguagePickerCupertino builds in dark mode',
       (WidgetTester tester) async {
     await tester.pumpWidget(CupertinoApp(

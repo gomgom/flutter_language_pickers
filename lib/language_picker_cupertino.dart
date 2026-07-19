@@ -34,15 +34,13 @@ class LanguagePickerCupertino extends StatefulWidget {
   ///
   /// For more details, see [ListWheelScrollView.diameterRatio].
   ///
-  /// Must not be null and defaults to `1.07` to visually mimic iOS.
+  /// Defaults to `1.07` to visually mimic iOS.
   final double? diameterRatio;
 
   /// Background color behind the children.
   ///
-  /// Defaults to a gray color in the iOS color palette.
-  ///
-  /// This can be set to null to disable the background painting entirely; this
-  /// is mildly more efficient than using [Colors.transparent].
+  /// Defaults to [CupertinoColors.systemBackground], so it follows
+  /// light and dark mode of the device.
   final Color? backgroundColor;
 
   /// {@macro flutter.rendering.wheelList.offAxisFraction}

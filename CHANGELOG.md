@@ -4,6 +4,8 @@
 - (Pull Request Merge -- crtl) Remove duplicated 'English' option which has wrong iso code 'alpha2'.
 - Now language_pickers.dart exports languages.dart too, so you need only one import.
 - Cupertino picker follows iOS dark mode now, and its options(backgroundColor, diameterRatio, scrollController, etc.) really work now.
+- (Issue -- dizang2) Search finds any part of language name now, not only the beginning.
+- Fix crash when dialog is searchable but has no title.
 - Update example app to new Android embedding.
 
 

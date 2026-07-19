@@ -72,8 +72,9 @@ class _LanguagePickerDropdownState extends State<LanguagePickerDropdown> {
           child: DropdownButton<Language>(
             isDense: true,
             onChanged: (value) {
+              if (value == null) return;
               setState(() {
-                _selectedLanguage = value!;
+                _selectedLanguage = value;
                 widget.onValuePicked?.call(value);
               });
             },

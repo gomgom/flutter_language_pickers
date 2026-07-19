@@ -123,4 +123,4 @@ Widget _buildCupertinoItem(Language language) => Row(
 
 ## Credits
 
-Developed by [gomgom](https://gomgom.net)(Github [@gomgom](https://github.com/gomgom)).
+Developed by [gomgom](https://gomgom.net)(GitHub [@gomgom](https://github.com/gomgom)).

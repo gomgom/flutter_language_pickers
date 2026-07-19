@@ -148,14 +148,15 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
   }
 
   _buildHeader() {
+    final title = _buildTitle();
     return widget.isSearchable
         ? Column(
             children: <Widget>[
-              _buildTitle(),
+              if (title != null) title,
               _buildSearchField(),
             ],
           )
-        : _buildTitle();
+        : title;
   }
 
   _buildTitle() {
@@ -176,8 +177,8 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
         setState(() {
           _filteredLanguages = _allLanguages
               .where((Language language) =>
-                  language.name.toLowerCase().startsWith(value.toLowerCase()) ||
-                  language.isoCode.toLowerCase().startsWith(value.toLowerCase()))
+                  language.name.toLowerCase().contains(value.toLowerCase()) ||
+                  language.isoCode.toLowerCase().contains(value.toLowerCase()))
               .toList();
         });
       },
