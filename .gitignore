@@ -533,3 +533,4 @@ test/
 android/
 example/test/
 
+**/ios/Flutter/ephemeral/
