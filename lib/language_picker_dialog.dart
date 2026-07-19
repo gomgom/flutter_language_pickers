@@ -3,21 +3,19 @@ import 'package:language_pickers/utils/typedefs.dart';
 
 import 'package:language_pickers/utils/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'languages.dart';
 
 ///Provides a customizable [Dialog] which displays all languages
 /// with optional search feature
 
 class LanguagePickerDialog extends StatefulWidget {
   /// Callback that is called with selected Language
-  final ValueChanged<Language> onValuePicked;
+  final ValueChanged<Language>? onValuePicked;
 
   /// The (optional) title of the dialog is displayed in a large font at the top
   /// of the dialog.
   ///
   /// Typically a [Text] widget.
-  final Widget title;
+  final Widget? title;
 
   /// Padding around the title.
   ///
@@ -29,7 +27,7 @@ class LanguagePickerDialog extends StatefulWidget {
   /// provided (but see [contentPadding]). If it _is_ null, then an extra 20
   /// pixels of bottom padding is added to separate the [title] from the
   /// [actions].
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   /// Padding around the content.
 
@@ -46,11 +44,11 @@ class LanguagePickerDialog extends StatefulWidget {
   ///
   ///  * [SemanticsConfiguration.isRouteName], for a description of how this
   ///    value is used.
-  final String semanticLabel;
+  final String? semanticLabel;
 
   ///Callback that is called with selected item of type Language which returns a
   ///Widget to build list view item inside dialog
-  final ItemBuilder itemBuilder;
+  final ItemBuilder? itemBuilder;
 
   /// The (optional) horizontal separator used between title, content and
   /// actions.
@@ -67,19 +65,19 @@ class LanguagePickerDialog extends StatefulWidget {
   final bool isSearchable;
 
   /// The optional [decoration] of search [TextField]
-  final InputDecoration searchInputDecoration;
+  final InputDecoration? searchInputDecoration;
 
   ///The optional [cursorColor] of search [TextField]
-  final Color searchCursorColor;
+  final Color? searchCursorColor;
 
   ///The search empty view is displayed if nothing returns from search result
-  final Widget searchEmptyView;
+  final Widget? searchEmptyView;
 
   /// List of languages available in this picker.
-  final List<Map<String, String>> languagesList;
+  final List<Map<String, String>>? languagesList;
 
   LanguagePickerDialog({
-    Key key,
+    Key? key,
     this.onValuePicked,
     this.title,
     this.titlePadding,
@@ -99,13 +97,13 @@ class LanguagePickerDialog extends StatefulWidget {
 
   @override
   SingleChoiceDialogState createState() {
-    return new SingleChoiceDialogState();
+    return SingleChoiceDialogState();
   }
 }
 
 class SingleChoiceDialogState extends State<LanguagePickerDialog> {
-  List<Language> _allLanguages;
-  List<Language> _filteredLanguages;
+  late List<Language> _allLanguages;
+  late List<Language> _filteredLanguages;
 
   @override
   void initState() {
@@ -134,10 +132,10 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
             children: _filteredLanguages
                 .map((item) => SimpleDialogOption(
                       child: widget.itemBuilder != null
-                          ? widget.itemBuilder(item)
+                          ? widget.itemBuilder!(item)
                           : Text(item.name),
                       onPressed: () {
-                        widget.onValuePicked(item);
+                        widget.onValuePicked?.call(item);
                         Navigator.pop(context);
                       },
                     ))
@@ -150,20 +148,21 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
   }
 
   _buildHeader() {
+    final title = _buildTitle();
     return widget.isSearchable
         ? Column(
             children: <Widget>[
-              _buildTitle(),
+              if (title != null) title,
               _buildSearchField(),
             ],
           )
-        : _buildTitle();
+        : title;
   }
 
   _buildTitle() {
     return widget.titlePadding != null
         ? Padding(
-            padding: widget.titlePadding,
+            padding: widget.titlePadding!,
             child: widget.title,
           )
         : widget.title;
@@ -178,8 +177,8 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
         setState(() {
           _filteredLanguages = _allLanguages
               .where((Language language) =>
-                  language.name.toLowerCase().startsWith(value.toLowerCase()) ||
-                  language.isoCode.toLowerCase().startsWith(value.toLowerCase()))
+                  language.name.toLowerCase().contains(value.toLowerCase()) ||
+                  language.isoCode.toLowerCase().contains(value.toLowerCase()))
               .toList();
         });
       },

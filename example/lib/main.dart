@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/language_pickers.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 

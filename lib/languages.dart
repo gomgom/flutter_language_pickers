@@ -5,11 +5,11 @@ class Language {
   final String isoCode;
 
   Language.fromMap(Map<String, String> map)
-      : name = map['name'],
-        isoCode = map['isoCode'];
+      : name = map['name']!,
+        isoCode = map['isoCode']!;
 }
 
-final List defaultLanguagesList = [
+final List<Map<String, String>> defaultLanguagesList = [
   {"isoCode": "ab", "name": "Abkhazian"},
   {"isoCode": "aa", "name": "Afar"},
   {"isoCode": "af", "name": "Afrikaans"},
@@ -54,7 +54,6 @@ final List defaultLanguagesList = [
   {"isoCode": "dv", "name": "Dhivehi"},
   {"isoCode": "nl", "name": "Dutch"},
   {"isoCode": "dz", "name": "Dzongkha"},
-  {"isoCode": "alpha2", "name": "English"},
   {"isoCode": "en", "name": "English"},
   {"isoCode": "eo", "name": "Esperanto"},
   {"isoCode": "et", "name": "Estonian"},
