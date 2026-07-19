@@ -34,7 +34,7 @@ class LanguagePickerCupertino extends StatefulWidget {
   ///
   /// For more details, see [ListWheelScrollView.diameterRatio].
   ///
-  /// Must not be null and defaults to `1.1` to visually mimic iOS.
+  /// Must not be null and defaults to `1.07` to visually mimic iOS.
   final double? diameterRatio;
 
   /// Background color behind the children.
@@ -100,11 +100,13 @@ class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
   Widget _buildBottomPicker(Widget picker) {
     return Container(
       height: widget.pickerSheetHeight,
-      color: CupertinoColors.white,
+      color: CupertinoDynamicColor.resolve(
+          widget.backgroundColor ?? CupertinoColors.systemBackground, context),
       child: DefaultTextStyle(
         style: widget.textStyle ??
-            const TextStyle(
-              color: CupertinoColors.black,
+            TextStyle(
+              color: CupertinoDynamicColor.resolve(
+                  CupertinoColors.label, context),
               fontSize: 16.0,
             ),
         child: GestureDetector(
@@ -120,8 +122,14 @@ class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
 
   Widget _buildPicker() {
     return CupertinoPicker(
+      scrollController: widget.scrollController,
       itemExtent: widget.pickerItemHeight,
-      backgroundColor: CupertinoColors.white,
+      diameterRatio: widget.diameterRatio ?? 1.07,
+      offAxisFraction: widget.offAxisFraction ?? 0.0,
+      useMagnifier: widget.useMagnifier ?? false,
+      magnification: widget.magnification ?? 1.0,
+      backgroundColor:
+          widget.backgroundColor ?? CupertinoColors.systemBackground,
       children: _allLanguages
           .map<Widget>((Language language) => widget.itemBuilder != null
               ? widget.itemBuilder!(language)

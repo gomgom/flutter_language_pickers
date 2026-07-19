@@ -3,6 +3,7 @@
 - Support null safety and Dart 3, so it works with latest Flutter again. (Thanks to spsarolkar's Pull Request)
 - (Pull Request Merge -- crtl) Remove duplicated 'English' option which has wrong iso code 'alpha2'.
 - Now language_pickers.dart exports languages.dart too, so you need only one import.
+- Cupertino picker follows iOS dark mode now, and its options(backgroundColor, diameterRatio, scrollController, etc.) really work now.
 - Update example app to new Android embedding.
 
 

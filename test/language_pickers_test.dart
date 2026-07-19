@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,5 +23,14 @@ void main() {
       ),
     ));
     expect(find.text('Korean (ko)'), findsOneWidget);
+  });
+
+  testWidgets('LanguagePickerCupertino builds in dark mode',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(CupertinoApp(
+      theme: CupertinoThemeData(brightness: Brightness.dark),
+      home: LanguagePickerCupertino(),
+    ));
+    expect(find.byType(LanguagePickerCupertino), findsOneWidget);
   });
 }
