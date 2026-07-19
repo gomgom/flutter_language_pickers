@@ -1,7 +1,7 @@
 # language_pickers
 
 ![](https://img.shields.io/github/license/gomgom/flutter_language_pickers.svg)
-![](https://img.shields.io/badge/Flutter%20Package-^0.2.0+1-blue.svg)
+![](https://img.shields.io/badge/Flutter%20Package-^0.3.0-blue.svg)
 ![](https://img.shields.io/github/languages/code-size/gomgom/flutter_language_pickers.svg)
 
 It's [package](https://flutter.io/developing-packages/) for Dart and Flutter.
@@ -18,7 +18,6 @@ Lots of source codes are from [country_pickers GitHub Repository](https://github
 #### LanguagePickerDropdown example
 
 ```dart
-import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_pickers.dart';
 
 Language _selectedDropdownLanguage =
@@ -52,7 +51,6 @@ LanguagePickerDropdown(
 #### LanguagePickerDialog example
 
 ```dart
-import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_pickers.dart';
 
 Language _selectedDialogLanguage =
@@ -89,7 +87,6 @@ void _openLanguagePickerDialog() => showDialog(
 #### LanguagePickerCupertino example
 
 ```dart
-import 'package:language_pickers/language.dart';
 import 'package:language_pickers/language_pickers.dart';
 
 Language _selectedCupertinoLanguage =
