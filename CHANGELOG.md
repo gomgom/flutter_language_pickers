@@ -12,8 +12,11 @@
 
 ### Fixed
 
-- `Language` implements `==` and `hashCode` now. It can be used as a Set/Map key,
-  and the dropdown no longer crashes when an equal but newly built `Language` is given.
+- `Language` implements `==` and `hashCode` now, comparing the code
+  case-insensitively. The names are display data and take no part, so a
+  `Language('nb', 'Norwegian')` kept from 0.3.0 still equals the renamed
+  built-in entry. It can be used as a Set/Map key, and the dropdown no longer
+  crashes when an equal but newly built `Language` is given.
 - 'nb' is named 'Norwegian Bokmål' now. It used to show as 'Norwegian', the same
   as 'no', so the picker had two identical looking items.
 - The pickers follow changes of `initialValue`, `controller` and `languages`

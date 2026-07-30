@@ -66,6 +66,17 @@ void main() {
       expect({a: 1}[b], 1);
     });
 
+    test('equality is the code alone, ignoring case', () {
+      // 'nb' was renamed from 'Norwegian' to 'Norwegian Bokmål' in 0.4.0. A
+      // Language kept from 0.3.0 has to keep matching the built-in entry.
+      expect(const Language('nb', 'Norwegian'), Languages.norwegianBokmal);
+      expect(const Language('KO', 'Korean'), Languages.korean);
+      expect(
+          const Language('KO', 'Korean').hashCode, Languages.korean.hashCode);
+      expect(const Language('ko', 'Korean'),
+          isNot(const Language('en', 'Korean')));
+    });
+
     test('nativeName falls back to name', () {
       const a = Language('ko', 'Korean');
       expect(a.nativeName, 'Korean');

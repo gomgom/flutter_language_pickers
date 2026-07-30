@@ -19,9 +19,11 @@ class Language {
         name = map['name']!,
         nativeName = map['nativeName'] ?? map['name']!;
 
-  /// Finds a language in [Languages.defaultLanguages] by its ISO 639-1 code.
+  /// Finds a language in [Languages.defaultLanguages] by its code.
   ///
-  /// The lookup ignores case, so 'ko' and 'KO' both find Korean.
+  /// The codes are ISO 639-1 ('ko'), except that Chinese is split by script:
+  /// 'zh_Hans' and 'zh_Hant'. The lookup ignores case, so 'ko' and 'KO' both
+  /// find Korean.
   ///
   /// Throws an [ArgumentError] if there is no such language. Note that
   /// [ArgumentError] is an [Error], not an [Exception].
@@ -34,6 +36,9 @@ class Language {
   }
 
   /// ISO 639-1 code. e.g. 'ko'
+  ///
+  /// Chinese is the exception: it is split by script into 'zh_Hans' and
+  /// 'zh_Hant'.
   final String isoCode;
 
   /// English name. e.g. 'Korean'
@@ -44,16 +49,18 @@ class Language {
   /// It falls back to [name] when it is not known.
   final String nativeName;
 
-  /// Whether [other] is a language with the same [isoCode] and [name].
+  /// Whether [other] is a language with the same [isoCode], ignoring case.
   ///
-  /// [nativeName] is deliberately left out, so a [Language] built from a map
-  /// without a native name still equals the built-in one.
+  /// [name] and [nativeName] are display data and take no part in equality.
+  /// So a `Language('nb', 'Norwegian')` kept from an older version of this
+  /// package still equals [Languages.norwegianBokmal], whose name changed
+  /// in 0.4.0.
   @override
   bool operator ==(Object other) =>
-      other is Language && isoCode == other.isoCode && name == other.name;
+      other is Language && isoCode.toLowerCase() == other.isoCode.toLowerCase();
 
   @override
-  int get hashCode => Object.hash(isoCode, name);
+  int get hashCode => isoCode.toLowerCase().hashCode;
 
   @override
   String toString() => 'Language($isoCode, $name)';

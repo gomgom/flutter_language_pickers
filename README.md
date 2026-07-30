@@ -170,7 +170,7 @@ Widget _buildCupertinoItem(Language language) => Row(
 
 ## Information
 
-**If a name or a native name is wrong, please make some issues on [Github](https://github.com/gomgom/flutter_language_pickers/issues).**
+**If a name or a native name is wrong, please make some issues on [GitHub](https://github.com/gomgom/flutter_language_pickers/issues).**
 
 The names and the native names are based on the public ISO 639-1 code table.
 Where the table lists several native writings for one language, this package
