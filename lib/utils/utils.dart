@@ -1,29 +1,14 @@
 import 'package:language_pickers/languages.dart';
 
+/// Helpers of this package.
 class LanguagePickerUtils {
-  static Language getLanguageByIsoCode(String isoCode) {
-    final _languages = defaultLanguagesList.map((item) => Language.fromMap(item)).toList();
-    try {
-      return _languages
-          .where((language) =>
-              language.isoCode.toLowerCase() == isoCode.toLowerCase())
-          .toList()[0];
-    } catch (error) {
-      throw Exception("The initialValue provided is not a supported iso code!");
-    }
-  }
+  /// Finds a language by its ISO 639-1 code.
+  @Deprecated('Use Language.fromIsoCode instead. Will be removed in 0.5.0.')
+  static Language getLanguageByIsoCode(String isoCode) =>
+      Language.fromIsoCode(isoCode);
 
+  /// The asset path of the flag image of [isoCode].
   static String getFlagImageAssetPath(String isoCode) {
     return "assets/${isoCode.toLowerCase()}.png";
   }
-
-  /* static Widget getDefaultFlagImage(Language language) {
-    return Image.asset(
-      LanguagePickerUtils.getFlagImageAssetPath(language.isoCode),
-      height: 20.0,
-      width: 30.0,
-      fit: BoxFit.fill,
-      package: "language_pickers",
-    );
-  } */
 }
