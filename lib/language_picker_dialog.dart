@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/utils/typedefs.dart';
 
@@ -74,10 +75,19 @@ class LanguagePickerDialog extends StatefulWidget {
   final Widget? searchEmptyView;
 
   /// List of languages available in this picker.
+  ///
+  /// Defaults to [Languages.defaultLanguages]. Treat the list you pass as
+  /// immutable: changing it in place does not rebuild the picker, while
+  /// passing a different list does.
+  final List<Language>? languages;
+
+  /// List of languages available in this picker, as maps.
+  @Deprecated('Use languages instead. Will be removed in 0.5.0.')
   final List<Map<String, String>>? languagesList;
 
-  LanguagePickerDialog({
-    Key? key,
+  /// Creates a dialog of languages.
+  const LanguagePickerDialog({
+    super.key,
     this.onValuePicked,
     this.title,
     this.titlePadding,
@@ -92,8 +102,11 @@ class LanguagePickerDialog extends StatefulWidget {
     this.searchInputDecoration,
     this.searchCursorColor,
     this.searchEmptyView,
+    this.languages,
+    @Deprecated('Use languages instead. Will be removed in 0.5.0.')
     this.languagesList,
-  }) : super(key: key);
+  }) : assert(languages == null || languagesList == null,
+            'Use either languages or the deprecated languagesList, not both.');
 
   @override
   SingleChoiceDialogState createState() {
@@ -104,13 +117,53 @@ class LanguagePickerDialog extends StatefulWidget {
 class SingleChoiceDialogState extends State<LanguagePickerDialog> {
   late List<Language> _allLanguages;
   late List<Language> _filteredLanguages;
+  String _query = '';
 
   @override
   void initState() {
-    final languageList = widget.languagesList ?? defaultLanguagesList;
-    _allLanguages = languageList.map((item) => Language.fromMap(item)).toList();
-    _filteredLanguages = _allLanguages;
     super.initState();
+    _allLanguages = _resolveLanguages();
+    _filteredLanguages = _allLanguages;
+  }
+
+  @override
+  void didUpdateWidget(LanguagePickerDialog oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // listEquals, not identity: callers often build an equal list every frame.
+    final bool languagesChanged =
+        !listEquals(oldWidget.languages, widget.languages) ||
+            !listEquals(
+              // ignore: deprecated_member_use_from_same_package
+              oldWidget.languagesList,
+              // ignore: deprecated_member_use_from_same_package
+              widget.languagesList,
+            );
+    if (languagesChanged) {
+      _allLanguages = _resolveLanguages();
+      // Keep whatever the user has typed so far.
+      _filteredLanguages = _filter(_query);
+    }
+  }
+
+  List<Language> _resolveLanguages() {
+    final List<Language>? languages = widget.languages;
+    if (languages != null) return languages;
+    // ignore: deprecated_member_use_from_same_package
+    final List<Map<String, String>>? legacy = widget.languagesList;
+    if (legacy != null) return legacy.map(Language.fromMap).toList();
+    return Languages.defaultLanguages;
+  }
+
+  /// The languages matching [query] by name, native name or ISO 639-1 code.
+  List<Language> _filter(String query) {
+    if (query.isEmpty) return _allLanguages;
+    final String lower = query.toLowerCase();
+    return _allLanguages
+        .where((Language language) =>
+            language.name.toLowerCase().contains(lower) ||
+            language.nativeName.toLowerCase().contains(lower) ||
+            language.isoCode.toLowerCase().contains(lower))
+        .toList();
   }
 
   @override
@@ -125,30 +178,30 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
     );
   }
 
-  _buildContent(BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     return _filteredLanguages.isNotEmpty
         ? ListView(
             shrinkWrap: true,
             children: _filteredLanguages
-                .map((item) => SimpleDialogOption(
-                      child: widget.itemBuilder != null
-                          ? widget.itemBuilder!(item)
-                          : Text(item.name),
+                .map((Language item) => SimpleDialogOption(
                       onPressed: () {
                         widget.onValuePicked?.call(item);
                         Navigator.pop(context);
                       },
+                      child: widget.itemBuilder != null
+                          ? widget.itemBuilder!(item)
+                          : Text(item.name),
                     ))
                 .toList(),
           )
         : widget.searchEmptyView ??
-            Center(
+            const Center(
               child: Text('No language found.'),
             );
   }
 
-  _buildHeader() {
-    final title = _buildTitle();
+  Widget? _buildHeader() {
+    final Widget? title = _buildTitle();
     return widget.isSearchable
         ? Column(
             children: <Widget>[
@@ -159,7 +212,7 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
         : title;
   }
 
-  _buildTitle() {
+  Widget? _buildTitle() {
     return widget.titlePadding != null
         ? Padding(
             padding: widget.titlePadding!,
@@ -168,18 +221,15 @@ class SingleChoiceDialogState extends State<LanguagePickerDialog> {
         : widget.title;
   }
 
-  _buildSearchField() {
+  Widget _buildSearchField() {
     return TextField(
       cursorColor: widget.searchCursorColor,
-      decoration:
-          widget.searchInputDecoration ?? InputDecoration(hintText: 'Search'),
+      decoration: widget.searchInputDecoration ??
+          const InputDecoration(hintText: 'Search'),
       onChanged: (String value) {
         setState(() {
-          _filteredLanguages = _allLanguages
-              .where((Language language) =>
-                  language.name.toLowerCase().contains(value.toLowerCase()) ||
-                  language.isoCode.toLowerCase().contains(value.toLowerCase()))
-              .toList();
+          _query = value;
+          _filteredLanguages = _filter(value);
         });
       },
     );

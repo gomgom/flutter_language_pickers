@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:language_pickers/language_pickers.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,36 +16,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'language_pickers Example'),
+      home: const MyHomePage(title: 'language_pickers Example'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Language _selectedDropdownLanguage =
-      LanguagePickerUtils.getLanguageByIsoCode('ko');
-  Language _selectedDialogLanguage =
-      LanguagePickerUtils.getLanguageByIsoCode('ko');
-  Language _selectedCupertinoLanguage =
-      LanguagePickerUtils.getLanguageByIsoCode('ko');
+  // The controller lets you read and change the dropdown selection from
+  // anywhere, not only from inside onValuePicked.
+  final LanguagePickerDropdownController _dropdownController =
+      LanguagePickerDropdownController(initialValue: Languages.korean);
 
-  // It's sample code of Dropdown Item.
+  Language _selectedDialogLanguage = Language.fromIsoCode('ko');
+  Language _selectedCupertinoLanguage = Language.fromIsoCode('ko');
+
+  @override
+  void dispose() {
+    _dropdownController.dispose();
+    super.dispose();
+  }
+
+  // It's sample code of Dropdown Item. It shows the native name too, so that
+  // people find their own language without reading English.
   Widget _buildDropdownItem(Language language) {
     return Row(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           width: 8.0,
         ),
-        Text("${language.name} (${language.isoCode})"),
+        Text("${language.name} (${language.nativeName})"),
       ],
     );
   }
@@ -52,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildDialogItem(Language language) => Row(
         children: <Widget>[
           Text(language.name),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Flexible(child: Text("(${language.isoCode})"))
         ],
       );
@@ -62,15 +72,16 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) => Theme(
             data: Theme.of(context).copyWith(primaryColor: Colors.pink),
             child: LanguagePickerDialog(
-                titlePadding: EdgeInsets.all(8.0),
+                titlePadding: const EdgeInsets.all(8.0),
                 searchCursorColor: Colors.pinkAccent,
-                searchInputDecoration: InputDecoration(hintText: 'Search...'),
+                searchInputDecoration:
+                    const InputDecoration(hintText: 'Search...'),
                 isSearchable: true,
-                title: Text('Select your language'),
+                title: const Text('Select your language'),
                 onValuePicked: (Language language) => setState(() {
                       _selectedDialogLanguage = language;
-                      print(_selectedDialogLanguage.name);
-                      print(_selectedDialogLanguage.isoCode);
+                      debugPrint(_selectedDialogLanguage.name);
+                      debugPrint(_selectedDialogLanguage.isoCode);
                     }),
                 itemBuilder: _buildDialogItem)),
       );
@@ -82,18 +93,18 @@ class _MyHomePageState extends State<MyHomePage> {
         return LanguagePickerCupertino(
           pickerSheetHeight: 200.0,
           onValuePicked: (Language language) => setState(() {
-                _selectedCupertinoLanguage = language;
-                print(_selectedCupertinoLanguage.name);
-                print(_selectedCupertinoLanguage.isoCode);
-              }),
+            _selectedCupertinoLanguage = language;
+            debugPrint(_selectedCupertinoLanguage.name);
+            debugPrint(_selectedCupertinoLanguage.isoCode);
+          }),
         );
       });
 
   Widget _buildCupertinoItem(Language language) => Row(
         children: <Widget>[
           Text("+${language.name}"),
-          SizedBox(width: 8.0),
-          Flexible(child: Text(language.name))
+          const SizedBox(width: 8.0),
+          Flexible(child: Text(language.nativeName))
         ],
       );
 
@@ -109,22 +120,32 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Expanded(
                 child: Center(
-                  child: LanguagePickerDropdown(
-                    initialValue: 'ko',
-                    itemBuilder: _buildDropdownItem,
-                    onValuePicked: (Language language) {
-                      _selectedDropdownLanguage = language;
-                      print(_selectedDropdownLanguage.name);
-                      print(_selectedDropdownLanguage.isoCode);
-                    },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      LanguagePickerDropdown(
+                        controller: _dropdownController,
+                        itemBuilder: _buildDropdownItem,
+                        onValuePicked: (Language language) {
+                          debugPrint(language.name);
+                          debugPrint(language.isoCode);
+                        },
+                      ),
+                      // Changing the controller moves the dropdown above.
+                      TextButton(
+                        onPressed: () =>
+                            _dropdownController.selectIsoCode('ja'),
+                        child: const Text('Set the dropdown to Japanese'),
+                      ),
+                    ],
                   ),
                 ),
               ),
               Expanded(
                 child: Center(
                   child: MaterialButton(
-                    child: Text("Push"),
                     onPressed: _openLanguagePickerDialog,
+                    child: Text("Push (${_selectedDialogLanguage.nativeName})"),
                   ),
                 ),
               ),

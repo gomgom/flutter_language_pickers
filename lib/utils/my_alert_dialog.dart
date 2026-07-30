@@ -10,7 +10,7 @@ class MyAlertDialog<T> extends StatelessWidget {
   /// null, which implies a default that depends on the values of the other
   /// properties. See the documentation of [titlePadding] for details.
   const MyAlertDialog({
-    Key? key,
+    super.key,
     this.title,
     this.titlePadding,
     this.content,
@@ -21,7 +21,7 @@ class MyAlertDialog<T> extends StatelessWidget {
       height: 0.0,
     ),
     this.isDividerEnabled = true,
-  }) : super(key: key);
+  });
 
   /// The (optional) title of the dialog is displayed in a large font at the top
   /// of the dialog.
@@ -106,7 +106,7 @@ class MyAlertDialog<T> extends StatelessWidget {
         child: DefaultTextStyle(
           style: Theme.of(context).textTheme.titleLarge ??
               DefaultTextStyle.of(context).style,
-          child: Semantics(child: title, namesRoute: true),
+          child: Semantics(namesRoute: true, child: title),
         ),
       ));
       if (isDividerEnabled) children.add(divider);
@@ -155,9 +155,10 @@ class MyAlertDialog<T> extends StatelessWidget {
       children: children,
     );
 
-    if (label != null)
+    if (label != null) {
       dialogChild =
           Semantics(namesRoute: true, label: label, child: dialogChild);
+    }
 
     return Dialog(child: dialogChild);
   }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/utils/typedefs.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,10 +59,19 @@ class LanguagePickerCupertino extends StatefulWidget {
   final FixedExtentScrollController? scrollController;
 
   /// List of languages available in this picker.
+  ///
+  /// Defaults to [Languages.defaultLanguages]. Treat the list you pass as
+  /// immutable: changing it in place does not rebuild the picker, while
+  /// passing a different list does.
+  final List<Language>? languages;
+
+  /// List of languages available in this picker, as maps.
+  @Deprecated('Use languages instead. Will be removed in 0.5.0.')
   final List<Map<String, String>>? languagesList;
 
+  /// Creates a cupertino picker of languages.
   const LanguagePickerCupertino({
-    Key? key,
+    super.key,
     this.onValuePicked,
     this.itemBuilder,
     this.pickerItemHeight = defaultPickerItemHeight,
@@ -73,11 +83,15 @@ class LanguagePickerCupertino extends StatefulWidget {
     this.useMagnifier,
     this.magnification,
     this.scrollController,
+    this.languages,
+    @Deprecated('Use languages instead. Will be removed in 0.5.0.')
     this.languagesList,
-  }) : super(key: key);
+  }) : assert(languages == null || languagesList == null,
+            'Use either languages or the deprecated languagesList, not both.');
 
   @override
-  _CupertinoLanguagePickerState createState() => _CupertinoLanguagePickerState();
+  State<LanguagePickerCupertino> createState() =>
+      _CupertinoLanguagePickerState();
 }
 
 class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
@@ -86,8 +100,31 @@ class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
   @override
   void initState() {
     super.initState();
-    final languageList = widget.languagesList ?? defaultLanguagesList;
-    _allLanguages = languageList.map((item) => Language.fromMap(item)).toList();
+    _allLanguages = _resolveLanguages();
+  }
+
+  @override
+  void didUpdateWidget(LanguagePickerCupertino oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // listEquals, not identity: callers often build an equal list every frame.
+    final bool languagesChanged =
+        !listEquals(oldWidget.languages, widget.languages) ||
+            !listEquals(
+              // ignore: deprecated_member_use_from_same_package
+              oldWidget.languagesList,
+              // ignore: deprecated_member_use_from_same_package
+              widget.languagesList,
+            );
+    if (languagesChanged) _allLanguages = _resolveLanguages();
+  }
+
+  List<Language> _resolveLanguages() {
+    final List<Language>? languages = widget.languages;
+    if (languages != null) return languages;
+    // ignore: deprecated_member_use_from_same_package
+    final List<Map<String, String>>? legacy = widget.languagesList;
+    if (legacy != null) return legacy.map(Language.fromMap).toList();
+    return Languages.defaultLanguages;
   }
 
   @override
@@ -103,8 +140,8 @@ class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
       child: DefaultTextStyle(
         style: widget.textStyle ??
             TextStyle(
-              color: CupertinoDynamicColor.resolve(
-                  CupertinoColors.label, context),
+              color:
+                  CupertinoDynamicColor.resolve(CupertinoColors.label, context),
               fontSize: 16.0,
             ),
         child: GestureDetector(
@@ -128,24 +165,24 @@ class _CupertinoLanguagePickerState extends State<LanguagePickerCupertino> {
       magnification: widget.magnification ?? 1.0,
       backgroundColor:
           widget.backgroundColor ?? CupertinoColors.systemBackground,
+      onSelectedItemChanged: (int index) {
+        widget.onValuePicked?.call(_allLanguages[index]);
+      },
       children: _allLanguages
           .map<Widget>((Language language) => widget.itemBuilder != null
               ? widget.itemBuilder!(language)
               : _buildDefaultItem(language))
           .toList(),
-      onSelectedItemChanged: (int index) {
-        widget.onValuePicked?.call(_allLanguages[index]);
-      },
     );
   }
 
-  _buildDefaultItem(Language language) {
+  Widget _buildDefaultItem(Language language) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Flexible(child: Text(language.name))
         ],
       ),

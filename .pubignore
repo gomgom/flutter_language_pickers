@@ -1,0 +1,21 @@
+# For `dart pub publish` this file replaces the .gitignore of this directory,
+# so the exclusions here are explicit instead of an accident of .gitignore.
+# The leftover app scaffolding at the package root and the tests are left out
+# of the published package on purpose. The example ships whole, so that it
+# still runs after `flutter create`-style downloads.
+/android/
+/ios/
+/test/
+
+# Local files that must never end up in the package. The Flutter tool writes
+# machine-local paths into the ios config files, so they must stay out.
+*.iml
+.idea/
+.vscode/
+build/
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
