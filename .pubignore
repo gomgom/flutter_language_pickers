@@ -7,7 +7,8 @@
 /ios/
 /test/
 
-# Local files that must never end up in the package.
+# Local files that must never end up in the package. The Flutter tool writes
+# machine-local paths into the ios config files, so they must stay out.
 *.iml
 .idea/
 .vscode/
@@ -15,3 +16,6 @@ build/
 pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh

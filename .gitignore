@@ -528,9 +528,8 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 
-# Added by myself
-test/
-android/
-example/test/
+# The tests and the example's android sources are tracked on purpose. The
+# root android/ and ios/ directories are leftover app scaffolding: everything
+# generated in them is already matched above, so no blanket rule is needed.
 
 **/ios/Flutter/ephemeral/
