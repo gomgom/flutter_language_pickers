@@ -1,1 +1,13 @@
 include: package:flutter_lints/flutter.yaml
+
+# See the comment in the analysis_options.yaml of the package itself: these
+# entries stop the Flutter tool from rewriting this file on `flutter pub get`.
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**

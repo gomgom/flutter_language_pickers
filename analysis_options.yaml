@@ -1,1 +1,15 @@
 include: package:flutter_lints/flutter.yaml
+
+# The Flutter tool rewrites this file during `flutter pub get` unless every
+# one of these entries is already here, which dirties the working tree and
+# makes `dart pub publish` complain. Keeping them written out keeps the tool
+# quiet. See flutter_tools/lib/src/migrations/analysis_options_migration.dart
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
